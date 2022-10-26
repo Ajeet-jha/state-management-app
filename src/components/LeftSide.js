@@ -2,18 +2,18 @@ import { useState, useContext } from 'react';
 import { UserContext } from '../context/rootContext';
 
 function LeftSide() {
-	const { users, getUser } = useContext(UserContext);
+	const {
+		state: { users, user },
+		getUser,
+	} = useContext(UserContext);
 	const [select, setSelect] = useState(-1);
-	const [user, setUser] = useState({});
+	console.log({ users, user });
 
 	const handleSelect = async (e) => {
 		const selected = e.target.value;
 		setSelect(selected);
 		if (selected > 0) {
-			const resp = await getUser(selected);
-			setUser(resp);
-		} else {
-			setUser([]);
+			await getUser(selected);
 		}
 	};
 
