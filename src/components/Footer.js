@@ -1,20 +1,18 @@
 import { useState, useContext } from 'react';
 import { UserContext } from '../context/rootContext';
-import { deleteUser } from '../services/Api';
 
 function Footer() {
 	const [select, setSelect] = useState(-1);
-	const { users, getAllUsers } = useContext(UserContext);
+	const {
+		state: { users },
+		deleteUserData,
+	} = useContext(UserContext);
 
 	const handleSelect = async (e) => {
 		const selected = e.target.value;
 		setSelect(selected);
 		if (selected > 0) {
-			await deleteUser({
-				url: `/users/${selected}`,
-				method: 'DELETE',
-			});
-			getAllUsers();
+			await deleteUserData(selected);
 		}
 	};
 

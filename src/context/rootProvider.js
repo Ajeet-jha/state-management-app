@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useReducer } from 'react';
 import { UserContext } from './rootContext';
-import { fetchUsers, fetchUser, updateUser } from '../services/Api';
+import { fetchUsers, fetchUser, updateUser, deleteUser } from '../services/Api';
 
 const intialState = {
 	users: [],
@@ -26,6 +26,11 @@ function UserProvider({ children }) {
 					user: action.payload,
 				};
 			case 'UPDATE_USER':
+				return {
+					...state,
+					update: action.payload,
+				};
+			case 'DELETE_USER':
 				return {
 					...state,
 					update: action.payload,
@@ -58,6 +63,7 @@ function UserProvider({ children }) {
 		});
 
 		dispatch({ type, payload: userResp });
+		getAllUsers();
 	};
 
 	const updateUserData = async ({ id, name }) => {
@@ -69,9 +75,24 @@ function UserProvider({ children }) {
 		getAllUsers();
 	};
 
+	const deleteUserData = async (selected) => {
+		await deleteUser({
+			url: `/users/${selected}`,
+			method: 'DELETE',
+		});
+		getAllUsers();
+	};
+
 	const usersProviderValue = useMemo(
-		() => ({ state, dispatch, getAllUsers, getUser, updateUserData }),
-		[state, dispatch, getAllUsers, getUser, updateUserData]
+		() => ({
+			state,
+			dispatch,
+			getAllUsers,
+			getUser,
+			updateUserData,
+			deleteUserData,
+		}),
+		[state, dispatch, getAllUsers, getUser, updateUserData, deleteUserData]
 	);
 
 	return (
