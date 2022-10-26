@@ -1,10 +1,6 @@
-import { useState } from 'react';
 import { postUser } from '../services/Api';
 
-function Main() {
-	const [name, setName] = useState('');
-	const [response, setResponse] = useState('');
-
+function Main({ name, setName, response, setResponse, getAllUsers }) {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
@@ -16,6 +12,7 @@ function Main() {
 
 		setResponse(resp);
 		setName('');
+		getAllUsers();
 	};
 
 	return (

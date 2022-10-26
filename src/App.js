@@ -8,14 +8,18 @@ function App() {
 	const [users, setUsers] = useState([]);
 	const [user, setUser] = useState([]);
 
+	const [name, setName] = useState('');
+	const [response, setResponse] = useState('');
+
+	const getAllUsers = async () => {
+		const resp = await fetchUsers({
+			url: '/users',
+			method: 'GET',
+		});
+		setUsers(resp);
+	};
+
 	useEffect(() => {
-		const getAllUsers = async () => {
-			const resp = await fetchUsers({
-				url: '/users',
-				method: 'GET',
-			});
-			setUsers(resp);
-		};
 		getAllUsers();
 	}, []);
 
@@ -42,7 +46,13 @@ function App() {
 				setUsers={setUsers}
 				findUser={findUser}
 			/>
-			<Components.Main />
+			<Components.Main
+				name={name}
+				setName={setName}
+				response={response}
+				setResponse={setResponse}
+				getAllUsers={getAllUsers}
+			/>
 			<Components.RightSide />
 			<Components.Footer />
 		</section>
