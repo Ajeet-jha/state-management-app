@@ -1,39 +1,16 @@
-import { useEffect, useState } from 'react';
-import { fetchUsers, fetchUser, updateUser } from '../services/Api';
+import { useState } from 'react';
+import { updateUser } from '../services/Api';
 
-function Header() {
+function Header({ users, getUser, getAllUsers }) {
 	const [select, setSelect] = useState(-1);
-	const [users, setUsers] = useState([]);
 	const [user, setUser] = useState({});
 
-	const getAllUsers = async () => {
-		const resp = await fetchUsers({
-			url: '/users',
-			method: 'GET',
-		});
-		setUsers(resp);
-	};
-
-	useEffect(() => {
-		getAllUsers();
-	}, []);
-
-	const findUser = async (id) => {
-		const getUser = async () => {
-			const userResp = await fetchUser({
-				url: `/users/${id}`,
-				method: 'GET',
-			});
-			setUser(userResp);
-		};
-		getUser();
-	};
-
-	const handleSelect = (e) => {
+	const handleSelect = async (e) => {
 		const selected = e.target.value;
 		setSelect(selected);
 		if (selected > 0) {
-			findUser(selected);
+			const resp = await getUser(selected);
+			setUser(resp);
 		} else {
 			setUser([]);
 		}
@@ -67,7 +44,7 @@ function Header() {
 					))}
 				</select>
 			</label>
-			{Object.keys(user).length !== 0 && (
+			{user && Object.keys(user).length !== 0 && (
 				<form onSubmit={handleSubmit}>
 					<input type="text" value={user.id} disabled />
 					<input type="text" value={user.name} onChange={handleUpdate} />

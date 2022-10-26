@@ -1,9 +1,15 @@
-function LeftSide({ select, setSelect, users, findUser, user, setUser }) {
-	const handleSelect = (e) => {
+import { useState } from 'react';
+
+function LeftSide({ users, getUser }) {
+	const [select, setSelect] = useState(-1);
+	const [user, setUser] = useState({});
+
+	const handleSelect = async (e) => {
 		const selected = e.target.value;
 		setSelect(selected);
 		if (selected > 0) {
-			findUser(selected);
+			const resp = await getUser(selected);
+			setUser(resp);
 		} else {
 			setUser([]);
 		}

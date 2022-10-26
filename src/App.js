@@ -4,10 +4,7 @@ import { fetchUsers, fetchUser } from './services/Api';
 import * as Components from './components';
 
 function App() {
-	const [select, setSelect] = useState(-1);
 	const [users, setUsers] = useState([]);
-	const [user, setUser] = useState([]);
-
 	const [name, setName] = useState('');
 	const [response, setResponse] = useState('');
 
@@ -23,29 +20,22 @@ function App() {
 		getAllUsers();
 	}, []);
 
-	const findUser = async (id) => {
-		const getUser = async () => {
-			const userResp = await fetchUser({
-				url: `/users/${id}`,
-				method: 'GET',
-			});
-			setUser(userResp);
-		};
-		getUser();
+	const getUser = async (id) => {
+		const userResp = await fetchUser({
+			url: `/users/${id}`,
+			method: 'GET',
+		});
+		return userResp;
 	};
 
 	return (
 		<section>
-			<Components.Header />
-			<Components.LeftSide
-				select={select}
-				setSelect={setSelect}
-				user={user}
-				setUser={setUser}
+			<Components.Header
 				users={users}
-				setUsers={setUsers}
-				findUser={findUser}
+				getUser={getUser}
+				getAllUsers={getAllUsers}
 			/>
+			<Components.LeftSide users={users} getUser={getUser} />
 			<Components.Main
 				name={name}
 				setName={setName}
