@@ -1,6 +1,11 @@
+import { useContext } from 'react';
+import { UserContext } from '../context/rootContext';
 import { postUser } from '../services/Api';
 
-function Main({ name, setName, response, setResponse, getAllUsers }) {
+function Main() {
+	const { name, setName, response, setResponse, getAllUsers } =
+		useContext(UserContext);
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 

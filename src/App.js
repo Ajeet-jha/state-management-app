@@ -4,8 +4,8 @@ function App() {
 	return (
 		<section>
 			{/* <Components.Header />
-			<Components.LeftSide />
-			<Components.Main /> */}
+			<Components.LeftSide /> */}
+			<Components.Main />
 			<Components.RightSide />
 			{/* <Components.Footer /> */}
 		</section>

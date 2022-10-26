@@ -5,8 +5,8 @@ import { fetchUsers } from '../services/Api';
 function UserProvider({ children }) {
 	// const [value, setValue] = useState({});
 	const [users, setUsers] = useState([]);
-	// const [name, setName] = useState('');
-	// const [response, setResponse] = useState('');
+	const [name, setName] = useState('');
+	const [response, setResponse] = useState('');
 
 	const getAllUsers = async () => {
 		const resp = await fetchUsers({
@@ -29,8 +29,16 @@ function UserProvider({ children }) {
 	// };
 
 	const usersProviderValue = useMemo(
-		() => ({ users, setUsers }),
-		[users, setUsers]
+		() => ({
+			users,
+			setUsers,
+			name,
+			setName,
+			response,
+			setResponse,
+			getAllUsers,
+		}),
+		[users, setUsers, name, setName, response, setResponse, getAllUsers]
 	);
 
 	return (
