@@ -21,6 +21,7 @@ body {
 	float: left;
 	width: 50%;
 	background-color: #f8f8f8;
+	text-align: center;
 }
 
 .right-side {
@@ -42,4 +43,8 @@ body {
 .right-side {
 	min-height: 400px;
 	height: 400px;
+}
+
+pre {
+	text-align: start;
 }
