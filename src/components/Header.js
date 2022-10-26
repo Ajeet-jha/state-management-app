@@ -1,18 +1,24 @@
-import { useState, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../context/rootContext';
-import { updateUser } from '../services/Api';
 
 function Header() {
 	const [select, setSelect] = useState(-1);
 	const [user, setUser] = useState({});
-	const { users, getUser, getAllUsers } = useContext(UserContext);
+	const {
+		state: { users, update },
+		getUser,
+		updateUserData,
+	} = useContext(UserContext);
+
+	useEffect(() => {
+		setUser(update);
+	}, [update]);
 
 	const handleSelect = async (e) => {
 		const selected = e.target.value;
 		setSelect(selected);
 		if (selected > 0) {
-			const resp = await getUser(selected);
-			setUser(resp);
+			await getUser(selected, 'UPDATE_USER');
 		} else {
 			setUser([]);
 		}
@@ -25,13 +31,7 @@ function Header() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const { id, name } = user;
-		await updateUser({
-			url: `/users/${id}`,
-			method: 'PUT',
-			data: { name },
-		});
-		getAllUsers();
+		await updateUserData(user);
 		setUser({});
 	};
 	return (

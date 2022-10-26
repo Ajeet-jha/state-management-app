@@ -25,6 +25,11 @@ function UserProvider({ children }) {
 					...state,
 					user: action.payload,
 				};
+			case 'UPDATE_USER':
+				return {
+					...state,
+					update: action.payload,
+				};
 
 			default:
 				return state;

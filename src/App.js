@@ -3,7 +3,7 @@ import * as Components from './components';
 function App() {
 	return (
 		<section>
-			{/* <Components.Header /> */}
+			<Components.Header />
 			<Components.LeftSide />
 			<Components.Main />
 			<Components.RightSide />
