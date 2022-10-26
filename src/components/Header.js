@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { UserContext } from '../context/rootContext';
 import { updateUser } from '../services/Api';
 
-function Header({ users, getUser, getAllUsers }) {
+function Header() {
 	const [select, setSelect] = useState(-1);
 	const [user, setUser] = useState({});
+	const { users, getUser, getAllUsers } = useContext(UserContext);
 
 	const handleSelect = async (e) => {
 		const selected = e.target.value;
