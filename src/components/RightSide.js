@@ -1,4 +1,9 @@
-function RightSide({ users }) {
+import { useContext } from 'react';
+import { UserContext } from '../context/rootContext';
+
+function RightSide() {
+	const { users } = useContext(UserContext);
+
 	return (
 		<section className="right-side">
 			<ul>
