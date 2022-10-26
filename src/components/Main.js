@@ -8,14 +8,7 @@ function Main() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const resp = await http.post('/users', {
-			headers: {
-				'Content-type': 'application/json; charset=UTF-8',
-			},
-			data: {
-				name,
-			},
-		});
+		const resp = await http.post('/users', { name });
 		setResponse(resp.data);
 		setName('');
 	};
