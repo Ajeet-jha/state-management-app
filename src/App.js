@@ -44,7 +44,7 @@ function App() {
 				getAllUsers={getAllUsers}
 			/>
 			<Components.RightSide users={users} />
-			<Components.Footer />
+			<Components.Footer users={users} getAllUsers={getAllUsers} />
 		</section>
 	);
 }

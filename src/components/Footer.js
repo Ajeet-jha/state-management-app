@@ -1,20 +1,8 @@
-import { useEffect, useState } from 'react';
-import { fetchUsers, deleteUser } from '../services/Api';
+import { useState } from 'react';
+import { deleteUser } from '../services/Api';
 
-function Footer() {
+function Footer({ users, getAllUsers }) {
 	const [select, setSelect] = useState(-1);
-	const [users, setUsers] = useState([]);
-
-	useEffect(() => {
-		const getAllUsers = async () => {
-			const resp = await fetchUsers({
-				url: '/users',
-				method: 'GET',
-			});
-			setUsers(resp);
-		};
-		getAllUsers();
-	}, []);
 
 	const handleSelect = async (e) => {
 		const selected = e.target.value;
@@ -24,6 +12,7 @@ function Footer() {
 				url: `/users/${selected}`,
 				method: 'DELETE',
 			});
+			getAllUsers();
 		}
 	};
 
