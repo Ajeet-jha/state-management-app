@@ -1,5 +1,15 @@
+import * as Components from './components';
+
 function App() {
-	return <div className="App">React State Management</div>;
+	return (
+		<section>
+			<Components.Header />
+			<Components.LeftSide />
+			<Components.Main />
+			<Components.RightSide />
+			<Components.Footer />
+		</section>
+	);
 }
 
 export default App;
