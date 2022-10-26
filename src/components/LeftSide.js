@@ -7,7 +7,6 @@ function LeftSide() {
 		getUser,
 	} = useContext(UserContext);
 	const [select, setSelect] = useState(-1);
-	console.log({ users, user });
 
 	const handleSelect = async (e) => {
 		const selected = e.target.value;
