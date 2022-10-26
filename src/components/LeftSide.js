@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import http from '../services/httpConfig';
+import { fetchUsers, fetchUser } from '../services/Api';
 
 function LeftSide() {
 	const [select, setSelect] = useState(-1);
@@ -7,23 +7,32 @@ function LeftSide() {
 	const [user, setUser] = useState([]);
 
 	useEffect(() => {
-		const fetchUsers = async () => {
-			const resp = await http.get('/users');
-			setUsers(resp.data);
+		const getAllUsers = async () => {
+			const resp = await fetchUsers({
+				url: '/users',
+				method: 'GET',
+			});
+			setUsers(resp);
 		};
-		fetchUsers();
+		getAllUsers();
 	}, []);
 
-	const fetchUser = async (id) => {
-		const userResp = await http.get(`/users/${id}`);
-		setUser(userResp.data);
+	const findUser = async (id) => {
+		const getUser = async () => {
+			const userResp = await fetchUser({
+				url: `/users/${id}`,
+				method: 'GET',
+			});
+			setUser(userResp);
+		};
+		getUser();
 	};
 
 	const handleSelect = (e) => {
 		const selected = e.target.value;
 		setSelect(selected);
 		if (selected > 0) {
-			fetchUser(selected);
+			findUser(selected);
 		} else {
 			setUser([]);
 		}

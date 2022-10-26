@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import http from '../services/httpConfig';
+import { postUser } from '../services/Api';
 
 function Main() {
 	const [name, setName] = useState('');
@@ -8,8 +8,13 @@ function Main() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const resp = await http.post('/users', { name });
-		setResponse(resp.data);
+		const resp = await postUser({
+			url: '/users',
+			method: 'POST',
+			data: { name },
+		});
+
+		setResponse(resp);
 		setName('');
 	};
 

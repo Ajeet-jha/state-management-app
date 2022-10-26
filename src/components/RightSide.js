@@ -1,24 +1,25 @@
 import { useEffect, useState } from 'react';
-import http from '../services/httpConfig';
+import { fetchUsers } from '../services/Api';
 
 function RightSide() {
 	const [users, setUsers] = useState([]);
 
 	useEffect(() => {
-		const fetchUsers = async () => {
-			const resp = await http.get('/users');
-			setUsers(resp.data);
+		const getAllUsers = async () => {
+			const resp = await fetchUsers({
+				url: '/users',
+				method: 'GET',
+			});
+			setUsers(resp);
 		};
-		fetchUsers();
+		getAllUsers();
 	}, []);
 
 	return (
 		<section className="right-side">
 			<ul>
 				{users.map(({ id, name }) => (
-					<li key={id}>
-						{id} {name}
-					</li>
+					<li key={id}>{name}</li>
 				))}
 			</ul>
 		</section>

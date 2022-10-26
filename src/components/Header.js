@@ -1,30 +1,39 @@
 import { useEffect, useState } from 'react';
-import http from '../services/httpConfig';
+import { fetchUsers, fetchUser, updateUser } from '../services/Api';
 
 function Header() {
 	const [select, setSelect] = useState(-1);
 	const [users, setUsers] = useState([]);
 	const [user, setUser] = useState({});
 
-	const fetchUsers = async () => {
-		const resp = await http.get('/users');
-		setUsers(resp.data);
+	const getAllUsers = async () => {
+		const resp = await fetchUsers({
+			url: '/users',
+			method: 'GET',
+		});
+		setUsers(resp);
 	};
 
 	useEffect(() => {
-		fetchUsers();
+		getAllUsers();
 	}, []);
 
-	const fetchUser = async (id) => {
-		const userResp = await http.get(`/users/${id}`);
-		setUser(userResp.data);
+	const findUser = async (id) => {
+		const getUser = async () => {
+			const userResp = await fetchUser({
+				url: `/users/${id}`,
+				method: 'GET',
+			});
+			setUser(userResp);
+		};
+		getUser();
 	};
 
 	const handleSelect = (e) => {
 		const selected = e.target.value;
 		setSelect(selected);
 		if (selected > 0) {
-			fetchUser(selected);
+			findUser(selected);
 		} else {
 			setUser([]);
 		}
@@ -38,8 +47,12 @@ function Header() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const { id, name } = user;
-		await http.put(`/users/${id}`, { name });
-		fetchUsers();
+		await updateUser({
+			url: `/users/${id}`,
+			method: 'PUT',
+			data: { name },
+		});
+		getAllUsers();
 		setUser({});
 	};
 	return (
