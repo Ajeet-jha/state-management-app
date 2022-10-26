@@ -3,7 +3,6 @@ import { UserContext } from './rootContext';
 import { fetchUsers, fetchUser } from '../services/Api';
 
 function UserProvider({ children }) {
-	// const [value, setValue] = useState({});
 	const [users, setUsers] = useState([]);
 	const [name, setName] = useState('');
 	const [response, setResponse] = useState('');

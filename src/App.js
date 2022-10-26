@@ -7,7 +7,7 @@ function App() {
 			<Components.LeftSide />
 			<Components.Main />
 			<Components.RightSide />
-			{/* <Components.Footer /> */}
+			<Components.Footer />
 		</section>
 	);
 }

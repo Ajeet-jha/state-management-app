@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { UserContext } from '../context/rootContext';
 import { deleteUser } from '../services/Api';
 
-function Footer({ users, getAllUsers }) {
+function Footer() {
 	const [select, setSelect] = useState(-1);
+	const { users, getAllUsers } = useContext(UserContext);
 
 	const handleSelect = async (e) => {
 		const selected = e.target.value;
