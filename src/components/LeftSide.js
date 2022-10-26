@@ -12,7 +12,7 @@ function LeftSide() {
 		const selected = e.target.value;
 		setSelect(selected);
 		if (selected > 0) {
-			await getUser(selected);
+			await getUser(selected, 'DISPLAY_USER');
 		}
 	};
 

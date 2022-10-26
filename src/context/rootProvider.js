@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useReducer } from 'react';
 import { UserContext } from './rootContext';
-import { fetchUsers, fetchUser } from '../services/Api';
+import { fetchUsers, fetchUser, updateUser } from '../services/Api';
 
 const intialState = {
 	users: [],
 	user: {},
+	update: {},
 };
 
 function UserProvider({ children }) {
@@ -19,7 +20,7 @@ function UserProvider({ children }) {
 				return {
 					...state,
 				};
-			case 'FATCH_USER':
+			case 'DISPLAY_USER':
 				return {
 					...state,
 					user: action.payload,
@@ -45,18 +46,27 @@ function UserProvider({ children }) {
 		getAllUsers();
 	}, []);
 
-	const getUser = async (id) => {
+	const getUser = async (id, type) => {
 		const userResp = await fetchUser({
 			url: `/users/${id}`,
 			method: 'GET',
 		});
 
-		dispatch({ type: 'FATCH_USER', payload: userResp });
+		dispatch({ type, payload: userResp });
+	};
+
+	const updateUserData = async ({ id, name }) => {
+		await updateUser({
+			url: `/users/${id}`,
+			method: 'PUT',
+			data: { name },
+		});
+		getAllUsers();
 	};
 
 	const usersProviderValue = useMemo(
-		() => ({ state, dispatch, getAllUsers, getUser }),
-		[state, dispatch, getAllUsers, getUser]
+		() => ({ state, dispatch, getAllUsers, getUser, updateUserData }),
+		[state, dispatch, getAllUsers, getUser, updateUserData]
 	);
 
 	return (
