@@ -1,18 +1,12 @@
-import { useState, useEffect, useMemo, useReducer } from 'react';
+import { useEffect, useMemo, useReducer } from 'react';
 import { UserContext } from './rootContext';
-import { fetchUsers, fetchUser } from '../services/Api';
+import { fetchUsers } from '../services/Api';
 
 const intialState = {
 	users: [],
-	name: '',
-	response: '',
 };
 
 function UserProvider({ children }) {
-	// const [users, setUsers] = useState([]);
-	const [name, setName] = useState('');
-	const [response, setResponse] = useState('');
-
 	const reducer = (state, action) => {
 		switch (action.type) {
 			case 'FATCH_ALL_USERS':
@@ -20,6 +14,11 @@ function UserProvider({ children }) {
 					...state,
 					users: action.payload,
 				};
+			case 'USER_ADDED':
+				return {
+					...state,
+				};
+
 			default:
 				return state;
 		}
@@ -40,37 +39,17 @@ function UserProvider({ children }) {
 		getAllUsers();
 	}, []);
 
-	const getUser = async (id) => {
-		const userResp = await fetchUser({
-			url: `/users/${id}`,
-			method: 'GET',
-		});
-		return userResp;
-	};
+	// const getUser = async (id) => {
+	//     const userResp = await fetchUser({
+	//         url: `/users/${id}`,
+	//         method: 'GET',
+	//     });
+	//     return userResp;
+	// };
 
 	const usersProviderValue = useMemo(
-		() => ({
-			// users,
-			// setUsers,
-			name,
-			setName,
-			response,
-			setResponse,
-			getAllUsers,
-			getUser,
-			state,
-		}),
-		[
-			// users,
-			// setUsers,
-			name,
-			setName,
-			response,
-			setResponse,
-			getAllUsers,
-			getUser,
-			state,
-		]
+		() => ({ state, dispatch, getAllUsers }),
+		[state, dispatch, getAllUsers]
 	);
 
 	return (

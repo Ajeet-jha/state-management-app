@@ -1,10 +1,11 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { UserContext } from '../context/rootContext';
 import { postUser } from '../services/Api';
 
 function Main() {
-	const { name, setName, response, setResponse, getAllUsers } =
-		useContext(UserContext);
+	const [name, setName] = useState('');
+	const [response, setResponse] = useState('');
+	const { dispatch, getAllUsers } = useContext(UserContext);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -17,6 +18,7 @@ function Main() {
 
 		setResponse(resp);
 		setName('');
+		dispatch({ type: 'USER_ADDED' });
 		getAllUsers();
 	};
 

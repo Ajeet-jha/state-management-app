@@ -5,7 +5,7 @@ function App() {
 		<section>
 			{/* <Components.Header /> */}
 			{/* <Components.LeftSide /> */}
-			{/* <Components.Main /> */}
+			<Components.Main />
 			<Components.RightSide />
 			{/* <Components.Footer /> */}
 		</section>
