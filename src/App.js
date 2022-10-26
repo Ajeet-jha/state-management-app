@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { fetchUsers, fetchUser } from './services/Api';
+import { UserContext } from './context/rootContext';
 
 import * as Components from './components';
 
@@ -7,6 +8,8 @@ function App() {
 	const [users, setUsers] = useState([]);
 	const [name, setName] = useState('');
 	const [response, setResponse] = useState('');
+	const context = useContext(UserContext);
+	console.log(context);
 
 	const getAllUsers = async () => {
 		const resp = await fetchUsers({
