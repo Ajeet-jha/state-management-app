@@ -53,7 +53,7 @@ function App() {
 				setResponse={setResponse}
 				getAllUsers={getAllUsers}
 			/>
-			<Components.RightSide />
+			<Components.RightSide users={users} />
 			<Components.Footer />
 		</section>
 	);
