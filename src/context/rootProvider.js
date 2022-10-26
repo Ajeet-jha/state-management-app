@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { UserContext } from './rootContext';
-import { fetchUsers } from '../services/Api';
+import { fetchUsers, fetchUser } from '../services/Api';
 
 function UserProvider({ children }) {
 	// const [value, setValue] = useState({});
@@ -20,13 +20,13 @@ function UserProvider({ children }) {
 		getAllUsers();
 	}, []);
 
-	// const getUser = async (id) => {
-	//     const userResp = await fetchUser({
-	//         url: `/users/${id}`,
-	//         method: 'GET',
-	//     });
-	//     return userResp;
-	// };
+	const getUser = async (id) => {
+		const userResp = await fetchUser({
+			url: `/users/${id}`,
+			method: 'GET',
+		});
+		return userResp;
+	};
 
 	const usersProviderValue = useMemo(
 		() => ({
@@ -37,8 +37,18 @@ function UserProvider({ children }) {
 			response,
 			setResponse,
 			getAllUsers,
+			getUser,
 		}),
-		[users, setUsers, name, setName, response, setResponse, getAllUsers]
+		[
+			users,
+			setUsers,
+			name,
+			setName,
+			response,
+			setResponse,
+			getAllUsers,
+			getUser,
+		]
 	);
 
 	return (

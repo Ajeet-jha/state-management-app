@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { UserContext } from '../context/rootContext';
 
-function LeftSide({ users, getUser }) {
+function LeftSide() {
+	const { users, getUser } = useContext(UserContext);
 	const [select, setSelect] = useState(-1);
 	const [user, setUser] = useState({});
 
