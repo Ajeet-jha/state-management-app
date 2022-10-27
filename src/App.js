@@ -1,14 +1,15 @@
 import React from 'react';
-import Footer from './components/Footer';
-import AddTodo from './containers/AddTodo';
-import VisibleTodoList from './containers/VisibleTodoList';
+import AddTodo from './components/AddTodo';
+import TodoList from './components/TodoList';
+import VisibilityFilters from './components/VisibilityFilters';
 
 function App() {
 	return (
-		<div>
+		<div className="todo-app">
+			<h1>Todo List</h1>
 			<AddTodo />
-			<VisibleTodoList />
-			<Footer />
+			<TodoList />
+			<VisibilityFilters />
 		</div>
 	);
 }
