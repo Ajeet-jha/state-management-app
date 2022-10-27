@@ -1,15 +1,15 @@
-import React from 'react';
-import AddTodo from './components/AddTodo';
-import TodoList from './components/TodoList';
-import VisibilityFilters from './components/VisibilityFilters';
+import { useDispatch } from 'react-redux';
+import { increment, decrement } from './store/actions';
+import Count from './components/Count';
 
 function App() {
+	const dispatch = useDispatch();
+
 	return (
-		<div className="todo-app">
-			<h1>Todo List</h1>
-			<AddTodo />
-			<TodoList />
-			<VisibilityFilters />
+		<div className="App">
+			<Count />
+			<button onClick={() => dispatch(increment())}>Increment</button>
+			<button onClick={() => dispatch(decrement())}>Decrement</button>
 		</div>
 	);
 }
