@@ -1,9 +1,17 @@
 /*  eslint-disable  arrow-body-style */
 
 export const increment = () => {
-	return { type: 'INC' };
+	return async (dispatch) => {
+		await setTimeout(() => {
+			dispatch({ type: 'INC' });
+		}, 2000);
+	};
 };
 
 export const decrement = () => {
-	return { type: 'DEC' };
+	return async (dispatch) => {
+		await setTimeout(() => {
+			dispatch({ type: 'DEC' });
+		}, 3000);
+	};
 };
