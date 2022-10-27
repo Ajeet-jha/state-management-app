@@ -14,6 +14,7 @@ function Footer() {
 		if (selected > 0) {
 			await deleteUserData(selected);
 		}
+		setSelect(-1);
 	};
 
 	return (

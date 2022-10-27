@@ -35,7 +35,6 @@ function UserProvider({ children }) {
 					...state,
 					update: action.payload,
 				};
-
 			default:
 				return state;
 		}

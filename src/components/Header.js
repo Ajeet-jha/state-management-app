@@ -5,7 +5,7 @@ function Header() {
 	const [select, setSelect] = useState(-1);
 	const [user, setUser] = useState({});
 	const {
-		state: { users, update },
+		state: { users, update, user: data },
 		getUser,
 		updateUserData,
 	} = useContext(UserContext);
@@ -13,6 +13,10 @@ function Header() {
 	useEffect(() => {
 		setUser(update);
 	}, [update]);
+
+	useEffect(() => {
+		setSelect(-1);
+	}, [data]);
 
 	const handleSelect = async (e) => {
 		const selected = e.target.value;
@@ -33,6 +37,7 @@ function Header() {
 		e.preventDefault();
 		await updateUserData(user);
 		setUser({});
+		setSelect(-1);
 	};
 	return (
 		<header className="header">
